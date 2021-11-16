@@ -9,6 +9,22 @@ const GoogleStrategy = require('passport-google-oauth20').Strategy;
 const moment = require('moment');
 const json2xls = require('json2xls');
 
+// import { initializeApp } from "firebase/app";
+// import { getAnalytics } from "firebase/analytics";
+// const firebaseConfig = {
+//     apiKey: "AIzaSyCjsF71xZGSmOsdTWV6trdU-EbjWkOthc4",
+//     authDomain: "godigit-e73ff.firebaseapp.com",
+//     projectId: "godigit-e73ff",
+//     storageBucket: "godigit-e73ff.appspot.com",
+//     messagingSenderId: "159640239283",
+//     appId: "1:159640239283:web:a03114f31f2a3e1e2804c6",
+//     measurementId: "G-31VPZY5KTQ"
+//   };
+  
+//   // Initialize Firebase
+//   const app = initializeApp(firebaseConfig);
+//   const analytics = getAnalytics(app);
+
 passport.use(new GoogleStrategy({
     clientID: process.env.GOOGLE_CLIENT_ID,
     clientSecret: process.env.GOOGLE_CLIENT_SECRET,
