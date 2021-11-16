@@ -2,7 +2,7 @@ const quizService = require('../services/quizService');
 const quizModel= require('../models/dailyQuizQuestions')
 
 const topicsData =["Redis","MongoDB","JavaScript","Data Structures"]
-const batchService = require('../services/batchService');
+
 module.exports = {
     addQuestion: async(req, res) => {
         const data=await quizService.fetchCategoryList()
@@ -19,14 +19,7 @@ module.exports = {
           
         });
     },
-    createTest:async(req, res) => {
-        
-        const batchData = await batchService.batchList()
-        res.render('quiz/create-test',{
-            topicList: topicsData,
-            batchList: batchData
-        });
-    },
+
     saveCategory:async(req,res) =>{
         try{
             
@@ -115,28 +108,7 @@ module.exports = {
         }
 
     },
-    findTopicQuestionsTest:async(req,res) =>{
-        try{
-            
-            const requestedTopic = req.body.topic
-            const batchData = await batchService.batchList()
-            const data = await quizService.findTopicQuestions(req.body, req.files, req.params, req.query)
-          
-                     
-            res.render('quiz/create-test',{
-                data: data,
-                currentPage: req.query.page || 1,
-                topicList: topicsData,
-                requestedTopic:requestedTopic,
-                batchList: batchData
-                // pageUrl:`/student/find-student-batch/${requestedBatch}`
 
-            });
-        } catch(error){
-            res.status(400).send(error);
-        }
-
-    },
     editQuestion: async(req, res) => {
         try{
             const requestedId = req.params.questionID

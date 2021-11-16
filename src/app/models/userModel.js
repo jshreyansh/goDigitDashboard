@@ -1,61 +1,53 @@
 const mongoose = require('mongoose')
 const ObjectId = mongoose.Schema.Types.ObjectId;
+const {validator} = require('../../utils')
+
 
 const userSchema = new mongoose.Schema({
+    // title: {
+    //     type: String,
+    //     required: true,
+    //     enum: ["Mr", "Mrs", "Miss"]
+    // },
     fullName: {
         type: String,
-        trim: true
+        required: true,
     },
-    batch: {
-        type: ObjectId,
-        ref: "Batch"
-    },
-    gender: {
+    email: {
         type: String,
-        trim: true
-    },
-    email: String,
-    mobile: {
-        type: String,
-        required: [true, 'User phone number required'],
-        unique: [true, 'User with this phone number already exists'],
+        required: true,
         validate: {
-            validator: function(str) {
-                let isCorrect = str.length==10?true:false
-                
-                return /\d{10}/.test(str)&&isCorrect;
-            },
-            message: props => `${props.value} is not a valid phone number!`
+            validator: validator.validateEmail,
+            message: 'Please enter a valid email',
+            isAsync: false
         }
     },
-    otp: { type: String },
-    otpValidTill: { type: Number },
-    dateOfBirth: Date,
-    permanentAddress: {
-        addressLine1: String,
-        addressLine2: String,
-        city: String,
-        state: String,
-        pincode: Number,
-        country: { type: String, default: 'India' }
-    },
-    profilePicture: String,
-    isDeleted: { type: Boolean, default: false },
-    panCard: {
+    
+    password: {
         type: String,
-        validate: {
-            validator: function (str) {
-                var regpan = /^([a-zA-Z]){5}([0-9]){4}([a-zA-Z]){1}?$/;
-                return regpan.test(str)
-            },
-            message: props => `${props.value} is not valid pan card number!`
-        }
+        required: true,
+        minLength: 8,
+        maxLength: 15,
     },
-    isISASigned: {type: Boolean, default: false},
-    whatsAppConsent: {type: Boolean, default: false},
-    isNewUser: {type: Boolean, default: true},
-    generateOtpFlag: Boolean,
-}, { timestamps: true })
-
+    isDeleted:{
+        type:Boolean,
+        default:false,
+    },
+    isVerified:{
+        type:Boolean,
+        default:false,
+    },
+    urlCode: {
+        type:String,
+        unique:true,
+        lowercase:true,
+        trim :true},
+    // address: {
+    //     street: String,
+    //     city: String,
+    //     pincode: String
+    // }
+}, { timestamps: true });
 
 module.exports = mongoose.model('User', userSchema)
+

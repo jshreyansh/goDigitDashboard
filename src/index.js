@@ -15,10 +15,7 @@ const app= require('./server.js').app
 
 //express routes
 app.use('/',require('./app/routes/adminRoute.js'));
-app.use('/student',require('./app/routes/studentRoute.js'));
-app.use('/mentor',require('./app/routes/mentorRoute.js'));
 app.use('/quiz',require('./app/routes/quizRoute.js'));
-
-app.use('/batch',require('./app/routes/batchRoute.js'));
+app.use('/user',require('./app/routes/userRoute.js'));
 
 module.exports = app
