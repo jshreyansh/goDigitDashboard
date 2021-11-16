@@ -1,0 +1,51 @@
+<div>
+	{{>header}}
+	<div class="wrapper">
+		{{>sidebar}}
+
+		<div id="content" class="container-fluid">
+			{{#if errorMsg}}
+				{{>error}}
+			{{/if}}
+			{{#if successMsg}}
+				{{>success}}
+			{{/if}}
+			<div class="m-3 p-3 mt-4">
+				<form method="POST" action="/quiz/save-category" id="add-student" enctype="multipart/form-data">
+						
+						<hr>		
+					<div class="row">
+						<div class="col">
+							<div class="">
+								<div class="form-floating mb-3">
+									<input  name="categoryName" required type="text"
+										class="form-control" id="fullName">
+									<label for="fullName">Category Name</label>
+								</div>
+						     </div>								
+						</div>
+					</div>
+					<hr>
+
+					<div class="m-8 d-flex justify-content-center">
+						<button class="btn btn-success btn-md" type="submit" >Save</button>
+					</div>
+				</form>
+
+			</div>
+		</div>
+	</div>
+</div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
+<script>
+       window.addEventListener('DOMContentLoaded', (event) => {
+        setTimeout(function(){
+            $('#sidebar #quiz')[0].click();
+            let currentSubPage = $('#sidebar .quizSubMenu')[2];
+            $(currentSubPage).addClass('active')
+
+            $('.select2-single').select2();
+		},200);
+    });
+	
+</script>

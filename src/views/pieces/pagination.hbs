@@ -1,0 +1,38 @@
+{{#if (greaterThan data.totalPages 1)}}
+    <nav>
+        <ul class="pagination justify-content-center" id="pages">
+            {{#if (greaterThan currentPage 1)}}
+                <li class="page-item">
+                    <a href="{{this.pageUrl}}?page={{decrement currentPage}}" class="page-link">
+                        <i class="fas fa-chevron-left"></i>
+                    </a>
+                </li>
+            {{/if}}
+
+            {{#for (leftNumberFormula currentPage data.totalPages) currentPage 1 }}
+                {{#if (ifEquals ../currentPage this)}}
+                    <li class="page-item active"><a class="page-link" id="pnumber" value="{{this}}" href="{{../this.pageUrl}}?page={{this}}">{{this}}</a></li>
+                {{else}}
+                    <li class="page-item"><a class="page-link" id="pnumber" value="{{this}}" href="{{../this.pageUrl}}?page={{this}}">{{this}}</a></li>
+                {{/if}}
+            {{/for}}
+
+
+            {{#for (increment currentPage) (rightNumberFormula currentPage data.totalPages) 1}}
+                {{#if (ifEquals ../currentPage this)}}
+                    <li class="page-item active"><a class="page-link" id="pnumber" value="{{this}}" href="{{../this.pageUrl}}?page={{this}}">{{this}}</a></li>
+                {{else}}
+                    <li class="page-item"><a class="page-link" id="pnumber" value="{{this}}" href="{{../this.pageUrl}}?page={{this}}">{{this}}</a></li>
+                {{/if}}
+            {{/for}} 
+            
+            {{#if (lessThan currentPage data.totalPages)}}
+                <li class="page-item">
+                    <a href="{{this.pageUrl}}?page={{increment currentPage}}" class="page-link">
+                    <i class="fas fa-chevron-right"></i>
+                    </a>
+                </li>
+            {{/if}}
+        </ul>
+    </nav>
+{{/if}}

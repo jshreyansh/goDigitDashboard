@@ -1,0 +1,71 @@
+<div>
+    {{>header}}
+    <div class="wrapper">
+        {{>sidebar}}
+
+        <div id="content" class="container-fluid">
+            {{#if errorMsg}}
+            {{>error}}
+            {{/if}}
+            <div class="m-3 p-3 mt-4">
+                <h4>Add Mentor</h4>
+                <hr>
+                <form method="POST" action="/mentor/create-mentor" id="add-mentor" enctype="multipart/form-data">
+                    <div class="row">
+                        <div class="col-md-4 col-xs-12">
+                            <div class="form-floating mb-3">
+                                <input value="{{data.fullName}}" name="fullName" required type="text"
+                                    class="form-control" id="fullName">
+                                <label for="fullName">Full Name</label>
+                            </div>
+                        </div>
+                        <div class="col-md-4 col-xs-12">
+                            <div class="form-floating mb-3">
+                                <input value="{{data.mobile}}" name="mobile" required type="text" class="form-control"
+                                    id="mobile">
+                                <label for="mobile">Mobile Number</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="mentor_fields">
+
+                    </div>
+
+                    <button class="btn btn-success" type="button" onclick="mentor_fields();"> Add Mentor </button>
+                    <div class="mt-4 mb-4">
+                        <button class="btn btn-success btn-md" type="submit">Save</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    window.addEventListener('DOMContentLoaded', (event) => {
+        setTimeout(function () {
+            $('#sidebar #mentors')[0].click();
+            let currentSubPage = $('#sidebar .mentorsSubMenu')[0];
+            $(currentSubPage).addClass('active')
+
+            $('.select2-single').select2();
+        }, 200);
+    });
+
+    var room = 1;
+    function mentor_fields() {
+
+        room++;
+        var objTo = document.getElementById('mentor_fields')
+        var divtest = document.createElement("div");
+        divtest.setAttribute("class", "form-group removeclass" + room);
+        var rdiv = 'removeclass' + room;
+        divtest.innerHTML = '<div id="mentorInfo" class="row"> <div class="col-md-4 col-xs-12">	<div class="form-floating mb-3">	<input  name="fullName" required type="text" class="form-control" id="fullName"> <label for="fullName">Full Name</label>	</div>	</div> <div class="col-md-4 col-xs-12">	<div class="form-floating mb-3">	<input  name="mobile" required type="text" class="form-control" id="mobile"> <label for="mobile">Mobile Number</label> </div> </div>  <button style="height:35px;" class="btn btn-danger col" type="button" onclick="remove_fields(' + room + ');"> <span class="glyphicon glyphicon-minus" aria-hidden="true"> delete</span> </button>	</div>';
+
+        objTo.appendChild(divtest)
+    }
+    function remove_fields(rid) {
+        $('.removeclass' + rid).remove();
+    }
+</script>

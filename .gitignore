@@ -1,0 +1,30 @@
+.DS_Store
+src/.DS_Store
+src/app/.DS_Store
+src/app/routes/.DS_Store
+src/node_modules/
+src/node_modules/
+src/npm-debug.log
+src/.env.production
+
+
+# IDE files
+.vs
+.idea
+.vscode/
+src/package-lock.json
+package-lock.json
+
+
+# Binary and Object files
+src/bin
+src/obj
+
+# Winston log files
+src/logs/
+
+# test files
+src/test/
+
+# Temp local files
+src/app/services/testServiceTEST.js

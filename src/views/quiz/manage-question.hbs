@@ -1,0 +1,110 @@
+<div>
+	{{>header}}
+	<div class="wrapper">
+		{{>sidebar}}
+
+		<div id="content" class="container-fluid">
+			{{#if errorMsg}}
+				{{>error}}
+			{{/if}}
+			{{#if successMsg}}
+				{{>success}}
+			{{/if}}
+			<div class="m-3 p-3 mt-4">
+				<div class="row d-flex justify-content-center">
+                        <form  method="POST" action="/quiz/find-topic-questions" id="find-student" enctype="multipart/form-data">
+							
+							
+								<div class="d-flex justify-content-center">
+									<div style="width: 250px;" class="m-2">
+							{{#select requestedTopic}}
+								<select name="topic" required class="form-select select2-single">
+										<option value="">Category Name</option>
+										{{#each topicList}}
+											<option value="{{this.categoryName}}" >{{this.categoryName}}</option>
+										{{/each}}
+								</select>
+							  {{/select}}
+								</div>
+								<button type="submit" class="btn btn-primary m-2">Find</button>
+								</div>
+							
+						</form>
+				</div>
+              
+				<hr>
+                
+                  {{!-- <div class="d-flex justify-content-end">
+                         <a style="width: 150px;" class="btn btn-sm btn-success " href="/student/edit-student/{{this._id}}">Edit</a>
+				  </div> --}}
+
+				<table class="table table-hover">
+					<thead>
+						<tr>
+							<th  scope="col">S.no</th>
+							<th class="text-center" scope="col">Questions List</th>  
+						</tr>
+					</thead>
+					<tbody id="student-table-content">
+						{{#each data.result}}
+							<tr>
+								<th scope="row">{{tableSerialNumber ../currentPage @index}}</th>
+								<td>
+                    <div class="row">
+								<div  class="col d-flex flex-column justify-content-between">
+						<div class="mb-3">
+							<label for="formFile" class="form-label">item Name</label>
+								<textarea disabled id="question" name="question" rows="2" cols="26" required type="text" class="form-control " placeholder="" aria-describedby="sizing-addon2">{{this.itemName}}</textarea>
+							</div>
+							<div class="mb-3">
+								<label for="formFile" class="form-label">item Price</label>
+								<textarea disabled id="question" name="question" rows="2" cols="26" required type="text" class="form-control " placeholder="" aria-describedby="sizing-addon2">Rs. {{this.itemPrice}}</textarea>
+							</div>
+							<div class="mb-3">
+								<label for="formFile" class="form-label">Item Details</label>
+								<textarea disabled id="question" name="question" rows="2" cols="26" required type="text" class="form-control " placeholder="" aria-describedby="sizing-addon2">{{this.itemDetails}}</textarea>
+							</div>
+							</div>
+						<div class="col">
+							
+							<div class="row d-flex justify-content-between align-items-end flex-row-reverse">
+								<div class="col">
+								<label for="formFile" class="form-label">Associated Image</label>
+		                        <div><img src="{{this.imageUrl}}" alt="No image" height="200px"></div>
+								</div>
+							</div>
+	                            <div class="d-flex flex-row bd-highlight">
+									<a class="btn btn-sm btn-success m-2" href="/quiz/edit-question/{{this._id}}">Edit</a>
+									<a class="btn btn-sm btn-danger m-2" href="/quiz/delete-question/{{this._id}}" onclick="return confirm('Are you sure to delete this record ?');">Delete</a>
+								</div>
+						</div>
+						
+						
+					</div>
+                                </td>
+
+
+							</tr>
+						{{/each}}
+					</tbody>
+				</table>
+				<div class="mt-4">
+					{{>pagination pageUrl= pageUrl}}
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
+<script>
+       window.addEventListener('DOMContentLoaded', (event) => {
+        setTimeout(function(){
+            $('#sidebar #quiz')[0].click();
+            let currentSubPage = $('#sidebar .quizSubMenu')[1];
+            $(currentSubPage).addClass('active')
+
+            $('.select2-single').select2();
+		},200);
+    });
+	
+</script>
